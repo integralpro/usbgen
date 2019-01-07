@@ -13,24 +13,17 @@ namespace audio {
 
 struct uint24_t : public std::array<uint8_t, 3> {
   template <typename T>
-  constexpr uint24_t(T Val) :
-    std::array<uint8_t, 3>{
-    static_cast<uint8_t>(Val & 0xff),
-    static_cast<uint8_t>((Val >> 8) & 0xff),
-    static_cast<uint8_t>((Val >> 16) & 0xff)} {}
+  constexpr uint24_t(T Val)
+      : std::array<uint8_t, 3>{static_cast<uint8_t>(Val & 0xff),
+                               static_cast<uint8_t>((Val >> 8) & 0xff),
+                               static_cast<uint8_t>((Val >> 16) & 0xff)} {}
 
   constexpr uint24_t() : std::array<uint8_t, 3>{0} {}
 };
 
-template <size_t N>
-struct N__ {
-  constexpr static size_t value = N;
-};
+template <size_t N> struct N__ { constexpr static size_t value = N; };
 
-template <>
-struct N__<0> {
-  constexpr static size_t value = 2;
-};
+template <> struct N__<0> { constexpr static size_t value = 2; };
 
 template <size_t N> struct FormatTypeIDescriptor : public DescriptorBase {
   using BaseTy = DescriptorBase;
@@ -43,8 +36,10 @@ template <size_t N> struct FormatTypeIDescriptor : public DescriptorBase {
   uint8_t bSamFreqType = {N};
   std::array<uint24_t, N__<N>::value> tSamFreq = {0};
 
-  constexpr FormatTypeIDescriptor() : BaseTy(sizeof(FormatTypeIDescriptor), AudioInterface) {
-    static_assert(sizeof(FormatTypeIDescriptor) == 8 + N__<N>::value * 3, "unexpected descriptor size");
+  constexpr FormatTypeIDescriptor()
+      : BaseTy(sizeof(FormatTypeIDescriptor), AudioInterface) {
+    static_assert(sizeof(FormatTypeIDescriptor) == 8 + N__<N>::value * 3,
+                  "unexpected descriptor size");
   }
 };
 
@@ -53,15 +48,14 @@ struct FormatTypeIComposite
     : public detail::CompositeDescriptor<FormatTypeIDescriptor<N>,
                                          AggregatesT...> {
   using BaseTy =
-  detail::CompositeDescriptor<FormatTypeIDescriptor<N>, AggregatesT...>;
+      detail::CompositeDescriptor<FormatTypeIDescriptor<N>, AggregatesT...>;
 
   constexpr FormatTypeIComposite(const AggregatesT &... Aggs)
-      : BaseTy(Aggs...) {
-  }
+      : BaseTy(Aggs...) {}
 };
 
-template<size_t N> struct FormatTypeIHelper {
-  template<typename... AggregateT>
+template <size_t N> struct FormatTypeIHelper {
+  template <typename... AggregateT>
   using type = FormatTypeIComposite<N, AggregateT...>;
 };
 
@@ -76,17 +70,17 @@ APPLICATOR(bNrChannels, uint8_t, bNrChannels)
 APPLICATOR(bSubframeSize, uint8_t, bSubframeSize)
 APPLICATOR(bBitResolution, uint8_t, bBitResolution)
 
-template<uint32_t... Vals> struct tSamFreq : detail::ApplicatorBase {
+template <uint32_t... Vals> struct tSamFreq : detail::ApplicatorBase {
   constexpr tSamFreq() {}
 
-  template<typename T> constexpr void apply(T &Object) const {
+  template <typename T> constexpr void apply(T &Object) const {
     Object.tSamFreq = {Vals...};
   }
 };
 
-}
+} // namespace format_type_i
 
-}
-}
+} // namespace audio
+} // namespace usb
 
 #endif //__USBGEN_AUDIO_FORMAT_TYPE_I__

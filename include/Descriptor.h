@@ -26,13 +26,14 @@ struct DescriptorBase {
     }                                                                          \
   };
 
-#define DESCRIPTOR_DEFINE(NAME, NAME1, SIZE, KIND) \
-struct NAME##Descriptor : public DescriptorBase { \
-using BaseTy = DescriptorBase;\
-constexpr NAME##Descriptor() : BaseTy(sizeof(NAME##Descriptor), KIND) { \
-  static_assert(sizeof(NAME##Descriptor) == SIZE, "unexpected descriptor size"); \
-}
+#define DESCRIPTOR_DEFINE(NAME, NAME1, SIZE, KIND)                             \
+  struct NAME##Descriptor : public DescriptorBase {                            \
+    using BaseTy = DescriptorBase;                                             \
+    constexpr NAME##Descriptor() : BaseTy(sizeof(NAME##Descriptor), KIND) {    \
+      static_assert(sizeof(NAME##Descriptor) == SIZE,                          \
+                    "unexpected descriptor size");                             \
+    }
 
-}
+} // namespace usb
 
 #endif //__USBGEN__DESCRIPTOR_IMPL__

@@ -7,13 +7,13 @@
 
 #ifndef AMALGAMATION
 #include "Std.h"
-#endif //AMALGAMATION
+#endif // AMALGAMATION
 
 #pragma pack(push, 1)
 
 #include "BaseTypes.h"
-#include "Descriptor.h"
 #include "Composite.h"
+#include "Descriptor.h"
 
 #include "descriptors/Descriptors.h"
 #include "descriptors/audio/Descriptors.h"

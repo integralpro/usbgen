@@ -17,12 +17,14 @@ struct IsochronousDataEndpointDescriptor : public EndpointDescriptor {
   // Reset to 0.
   uint8_t bRefresh = {0};
 
-  // The address of the endpoint used to communicate synchronization information if required by this endpoint.
-  // Reset to zero if no synchronization pipe is used.
+  // The address of the endpoint used to communicate synchronization information
+  // if required by this endpoint. Reset to zero if no synchronization pipe is
+  // used.
   uint8_t bSynchAddress = {0};
 
   constexpr IsochronousDataEndpointDescriptor() {
-    static_assert(sizeof(IsochronousDataEndpointDescriptor) == 9, "unexpected descriptor size");
+    static_assert(sizeof(IsochronousDataEndpointDescriptor) == 9,
+                  "unexpected descriptor size");
   }
 };
 
@@ -30,8 +32,8 @@ template <typename... AggregatesT>
 struct IsochronousDataEndpointComposite
     : public detail::CompositeDescriptor<IsochronousDataEndpointDescriptor,
                                          AggregatesT...> {
-  using BaseTy =
-  detail::CompositeDescriptor<IsochronousDataEndpointDescriptor, AggregatesT...>;
+  using BaseTy = detail::CompositeDescriptor<IsochronousDataEndpointDescriptor,
+                                             AggregatesT...>;
 
   constexpr IsochronousDataEndpointComposite(const AggregatesT &... Aggs)
       : BaseTy(Aggs...) {}
@@ -47,9 +49,9 @@ namespace iso_data_endpoint {
 APPLICATOR(bRefresh, uint8_t, bRefresh)
 APPLICATOR(bSynchAddress, uint8_t, bSynchAddress)
 
-}
+} // namespace iso_data_endpoint
 
-}
-}
+} // namespace audio
+} // namespace usb
 
-#endif //RADIO_V2_FW_CONTROLHEADER_H
+#endif // RADIO_V2_FW_CONTROLHEADER_H

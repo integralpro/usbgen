@@ -11,7 +11,8 @@
 namespace usb {
 namespace audio {
 
-template <typename T, size_t N> struct FeatureUnitDescriptor : public DescriptorBase {
+template <typename T, size_t N>
+struct FeatureUnitDescriptor : public DescriptorBase {
   using BaseTy = DescriptorBase;
 
   uint8_t bDescriptorSubtype = {FeatureUnit};
@@ -21,20 +22,22 @@ template <typename T, size_t N> struct FeatureUnitDescriptor : public Descriptor
   std::array<T, N + 1> bmaControls = {0};
   uint8_t iFeature = {0};
 
-  constexpr FeatureUnitDescriptor() : BaseTy(sizeof(FeatureUnitDescriptor), AudioInterface) {
-    static_assert(sizeof(FeatureUnitDescriptor) == (7 + (N + 1) * sizeof(T)), "unexpected descriptor size");
+  constexpr FeatureUnitDescriptor()
+      : BaseTy(sizeof(FeatureUnitDescriptor), AudioInterface) {
+    static_assert(sizeof(FeatureUnitDescriptor) == (7 + (N + 1) * sizeof(T)),
+                  "unexpected descriptor size");
   }
 };
 
 template <typename T, size_t N, typename... AggregatesT>
 struct FeatureUnitComposite
     : public detail::CompositeDescriptor<FeatureUnitDescriptor<T, N>,
-      AggregatesT...> {
-using BaseTy =
-detail::CompositeDescriptor<FeatureUnitDescriptor<T, N>, AggregatesT...>;
+                                         AggregatesT...> {
+  using BaseTy =
+      detail::CompositeDescriptor<FeatureUnitDescriptor<T, N>, AggregatesT...>;
 
-constexpr FeatureUnitComposite(const AggregatesT &... Aggs)
-    : BaseTy(Aggs...) {}
+  constexpr FeatureUnitComposite(const AggregatesT &... Aggs)
+      : BaseTy(Aggs...) {}
 };
 
 template <typename T, size_t N> struct FeatureUnitHelper {
@@ -52,17 +55,17 @@ APPLICATOR(bUnitID, uint8_t, bUnitID)
 APPLICATOR(bSourceID, uint8_t, bSourceID)
 APPLICATOR(iFeature, uint8_t, iFeature)
 
-template<size_t... Vals> struct bmaControls : detail::ApplicatorBase {
+template <size_t... Vals> struct bmaControls : detail::ApplicatorBase {
   constexpr bmaControls() {}
 
-  template<typename T> constexpr void apply(T &Object) const {
+  template <typename T> constexpr void apply(T &Object) const {
     Object.bmaControls = {Vals...};
   }
 };
 
-}
+} // namespace feature_unit
 
-}
-}
+} // namespace audio
+} // namespace usb
 
 #endif //__USBGEN_AUDIO_FEATURE_UNIT__

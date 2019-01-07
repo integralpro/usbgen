@@ -8,14 +8,14 @@
 namespace usb {
 
 namespace detail {
-template<typename... AggregatesT>
+template <typename... AggregatesT>
 struct composite_init<DeviceComposite<AggregatesT...>> {
   constexpr void apply(DeviceComposite<AggregatesT...> &Object) {
     Object.bNumConfigurations = sizeof...(AggregatesT);
   }
 };
 
-}
-}
+} // namespace detail
+} // namespace usb
 
 #endif //__USBGEN_EXTENSIONS_DEVICE__

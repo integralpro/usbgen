@@ -13,7 +13,7 @@ extern size_t USBConfigurationSize;
 void print_data(unsigned char *p, long size) {
   printf("Size: %lu\n", size);
 
-  for (int i=0;i<size;++i) {
+  for (int i = 0; i < size; ++i) {
     if (i && i % 10 == 0) {
       printf("\n");
     }

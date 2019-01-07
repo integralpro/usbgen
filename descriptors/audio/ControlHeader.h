@@ -20,26 +20,28 @@ template <size_t N> struct ControlHeaderDescriptor : public DescriptorBase {
   uint8_t bInCollection = {N};
   std::array<uint8_t, N> baInterfaceNr = {0};
 
-  constexpr ControlHeaderDescriptor() : BaseTy(sizeof(ControlHeaderDescriptor), AudioInterface) {
-    static_assert(sizeof(ControlHeaderDescriptor) == 8 + N, "unexpected descriptor size");
+  constexpr ControlHeaderDescriptor()
+      : BaseTy(sizeof(ControlHeaderDescriptor), AudioInterface) {
+    static_assert(sizeof(ControlHeaderDescriptor) == 8 + N,
+                  "unexpected descriptor size");
   }
 };
 
 template <size_t N, typename... AggregatesT>
 struct ControlHeaderComposite
     : public detail::CompositeDescriptor<ControlHeaderDescriptor<N>,
-      AggregatesT...> {
-using BaseTy =
-detail::CompositeDescriptor<ControlHeaderDescriptor<N>, AggregatesT...>;
+                                         AggregatesT...> {
+  using BaseTy =
+      detail::CompositeDescriptor<ControlHeaderDescriptor<N>, AggregatesT...>;
 
-constexpr ControlHeaderComposite(const AggregatesT &... Aggs)
-    : BaseTy(Aggs...) {
-  BaseTy::wTotalLength = sizeof(ControlHeaderComposite);
-}
+  constexpr ControlHeaderComposite(const AggregatesT &... Aggs)
+      : BaseTy(Aggs...) {
+    BaseTy::wTotalLength = sizeof(ControlHeaderComposite);
+  }
 };
 
-template<size_t N> struct AudioControlHelper {
-  template<typename... AggregateT>
+template <size_t N> struct AudioControlHelper {
+  template <typename... AggregateT>
   using type = ControlHeaderComposite<N, AggregateT...>;
 };
 
@@ -52,17 +54,17 @@ namespace header {
 
 APPLICATOR(bcdADC, uint16_t, bcdADC)
 
-template<uint8_t... Vals> struct baInterfaceNr : detail::ApplicatorBase {
+template <uint8_t... Vals> struct baInterfaceNr : detail::ApplicatorBase {
   constexpr baInterfaceNr() {}
 
-  template<typename T> constexpr void apply(T &Object) const {
+  template <typename T> constexpr void apply(T &Object) const {
     Object.baInterfaceNr = {Vals...};
   }
 };
 
-}
+} // namespace header
 
-}
-}
+} // namespace audio
+} // namespace usb
 
-#endif //RADIO_V2_FW_CONTROLHEADER_H
+#endif // RADIO_V2_FW_CONTROLHEADER_H

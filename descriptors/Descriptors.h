@@ -19,7 +19,7 @@
 #include "Descriptors.def"
 #include "UndefMacro.h"
 
-#include "Device.h"
 #include "Configuration.h"
+#include "Device.h"
 
 #endif //__USBGEN_DESCRIPTORS__

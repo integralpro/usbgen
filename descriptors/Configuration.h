@@ -13,17 +13,17 @@ struct bMaxPower_mA : public bMaxPower {
   constexpr bMaxPower_mA(uint8_t mA) : bMaxPower(mA / 2) {}
 };
 
-}
+} // namespace configuration
 
 namespace detail {
-template<typename... AggregatesT>
+template <typename... AggregatesT>
 struct composite_init<ConfigurationComposite<AggregatesT...>> {
   constexpr void apply(ConfigurationComposite<AggregatesT...> &Object) {
     Object.wTotalLength = sizeof(ConfigurationComposite<AggregatesT...>);
   }
 };
 
-}
-}
+} // namespace detail
+} // namespace usb
 
 #endif //__USBGEN_EXTENSIONS_CONFIGURATION__

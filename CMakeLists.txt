@@ -4,7 +4,7 @@ project (${PROJ} C CXX)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
-include_directories(include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_custom_command(
         OUTPUT usbgen.h
@@ -22,7 +22,5 @@ add_custom_target(
         DEPENDS usbgen.h
         COMMENT "Preprocessing usbgen.h.in"
         VERBATIM)
-
-include_directories(${CMAKE_BINARY_DIR})
 
 add_subdirectory(examples)

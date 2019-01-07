@@ -40,6 +40,6 @@ enum DescriptorClass : uint8_t {
   VendorSpecific = 0xff
 };
 
-}
+} // namespace usb
 
-#endif //RADIO_V2_FW_TYPES_H
+#endif // RADIO_V2_FW_TYPES_H

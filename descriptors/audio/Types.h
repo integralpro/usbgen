@@ -36,7 +36,8 @@ enum InputTerminalType : uint16_t {
   // Input Terminal, undefined Type.
   TerminalUndefined = 0x0200,
 
-  // A generic microphone that does not fit under any of the other classifications.
+  // A generic microphone that does not fit under any of the other
+  // classifications.
   TerminalMicrophone = 0x0201,
 
   // A microphone normally placed on the desktop or integrated into the monitor.
@@ -45,10 +46,12 @@ enum InputTerminalType : uint16_t {
   // A head-mounted or clip-on microphone.
   TerminalPersonalMicrophone = 0x0203,
 
-  // A microphone designed to pick up voice from more than one speaker at relatively long ranges.
+  // A microphone designed to pick up voice from more than one speaker at
+  // relatively long ranges.
   TerminalOmniDirectionalMicrophone = 0x0204,
 
-  // An array of microphones designed for directional processing using host-based signal processing algorithms.
+  // An array of microphones designed for directional processing using
+  // host-based signal processing algorithms.
   TerminalMicrophoneArray = 0x0205,
 
   // An array of microphones with an embedded signal processor.
@@ -90,9 +93,7 @@ enum InterfaceSubclass : uint8_t {
   SubclassMidiStreaming = 0x03
 };
 
-enum InterfaceProtocol : uint8_t {
-  ProtocolUndefined = 0x00
-};
+enum InterfaceProtocol : uint8_t { ProtocolUndefined = 0x00 };
 
 enum DescriptorType : uint8_t {
   AudioDescriptorUndefined = 0x20,
@@ -119,7 +120,7 @@ enum DataFormatTypeI : uint16_t {
   MULAW = 0x0005,
 };
 
-}
-}
+} // namespace audio
+} // namespace usb
 
 #endif //__USBGEN_AUDIO_TERMINAL_TYPES__

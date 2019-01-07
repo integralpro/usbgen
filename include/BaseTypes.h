@@ -11,11 +11,11 @@ namespace detail {
 
 struct ApplicatorBase {};
 
-template<typename T>
+template <typename T>
 using IsApplicatorTy = std::is_base_of<detail::ApplicatorBase, T>;
 
-}
+} // namespace detail
 
-}
+} // namespace usb
 
 #endif //__USBGEN_BASE_TYPES__
