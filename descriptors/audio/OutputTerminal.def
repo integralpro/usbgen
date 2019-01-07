@@ -1,0 +1,21 @@
+DESCRIPTOR_BEGIN(OutputTerminal, output_terminal, 9, AudioInterface)
+
+FIELD_HIDDEN(uint8_t, bDescriptorSubtype, OutputTerminal)
+
+// Constant uniquely identifying the Terminal within the audio function.
+// This value is used in all requests to address this Terminal.
+FIELD(uint8_t, bTerminalID, 0)
+
+// Constant characterizing the type of Terminal. See USB Audio Terminal Types.
+FIELD(uint16_t, wTerminalType, 0)
+
+// ID of the Output Terminal to which this Input Terminal is associated.
+FIELD(uint8_t, bAssocTerminal, 0)
+
+// ID of the Unit or Terminal to which this Terminal is connected.
+FIELD(uint8_t, bSourceID, 0)
+
+// Index of a string descriptor, describing the Input Terminal.
+FIELD(uint8_t, iTerminal, 0)
+
+DESCRIPTOR_END()

@@ -1,0 +1,8 @@
+//
+// Created by Pavel Prokofyev on 2019-01-02.
+//
+
+#define DESCRIPTOR_BEGIN(NAME, NAME1, SIZE, KIND) namespace NAME1 {
+#define FIELD(TYPE, NAME, VALUE) APPLICATOR(NAME, TYPE, NAME)
+#define FIELD_HIDDEN(TYPE, NAME, VALUE)
+#define DESCRIPTOR_END() }

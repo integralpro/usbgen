@@ -1,0 +1,24 @@
+DESCRIPTOR_BEGIN(ASIsochronousDataEndpoint, as_iso_data_endpoint, 7, AudioEndpoint)
+
+FIELD_HIDDEN(uint8_t, bDescriptorSubtype, EPGeneral)
+
+// A bit in the range D6..0 set to 1 indicates that the mentioned Control is supported by this endpoint.
+// D0: Sampling Frequency
+// D1: Pitch
+//     D6..2: Reserved
+//     Bit D7 indicates a requirement for wMaxPacketSize packets.
+// D7: MaxPacketsOnly
+FIELD(uint8_t, bmAttributes, 0)
+
+// Indicates the units used for the wLockDelay field:
+// 0: Undefined
+// 1: Milliseconds
+// 2: Decoded PCM samples
+// 3..255: Reserved
+FIELD(uint8_t, bLockDelayUnits, 0)
+
+// Indicates the time it takes this endpoint to reliably lock its
+// internal clock recovery circuitry. Units used depend on the value of the bLockDelayUnits field.
+FIELD(uint16_t, wLockDelay, 0)
+
+DESCRIPTOR_END()

@@ -1,0 +1,24 @@
+DESCRIPTOR_BEGIN(Configuration, configuration, 9, Configuration)
+
+// Total length in bytes of data returned
+FIELD_HIDDEN(uint16_t, wTotalLength, 0)
+
+// Number of Interfaces
+FIELD(uint8_t, bNumInterfaces, 0)
+
+// Value to use as an argument to select this configuration
+FIELD(uint8_t, bConfigurationValue, 1)
+
+// Index of String Descriptor describing this configuration
+FIELD(uint8_t, iConfiguration, 0)
+
+// D7 Reserved, set to 1. (USB 1.0 Bus Powered)
+// D6 Self Powered
+// D5 Remote Wakeup
+// D4..0 Reserved, set to 0.
+FIELD(uint8_t, bmAttributes, 0x80)
+
+// Maximum Power Consumption in 2mA units
+FIELD(uint8_t, bMaxPower, 0)
+
+DESCRIPTOR_END()

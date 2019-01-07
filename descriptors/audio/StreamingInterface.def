@@ -1,0 +1,15 @@
+DESCRIPTOR_BEGIN(StreamingInterface, streaming_interface, 7, AudioInterface)
+
+FIELD_HIDDEN(uint8_t, bDescriptorSubtype, ASGeneral)
+
+// The Terminal ID of the Terminal to which the endpoint of this interface is connected.
+FIELD(uint8_t, bTerminalLink, 0)
+
+// Delay (δ) introduced by the data path (see Section 3.4, “Inter Channel Synchronization”).
+// Expressed in number of frames.
+FIELD(uint8_t, bDelay, 0)
+
+// The Audio Data Format that has to be used to communicate with this interface.
+FIELD(uint16_t, wFormatTag, 0)
+
+DESCRIPTOR_END()

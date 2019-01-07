@@ -1,0 +1,14 @@
+//
+// Created by Pavel Prokofyev on 2019-01-02.
+//
+
+namespace usb {
+namespace audio {
+
+#include "InputTerminal.def"
+#include "OutputTerminal.def"
+#include "StreamingInterface.def"
+#include "ASIsochronousDataEndpoint.def"
+
+}
+}

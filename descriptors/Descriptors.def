@@ -1,0 +1,12 @@
+//
+// Created by Pavel Prokofyev on 2019-01-02.
+//
+
+namespace usb {
+
+#include "Device.def"
+#include "Configuration.def"
+#include "Interface.def"
+#include "Endpoint.def"
+
+}

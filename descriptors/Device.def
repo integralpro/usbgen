@@ -1,0 +1,43 @@
+DESCRIPTOR_BEGIN(Device, device, 18, Device)
+
+// USB Specification Number which device complies too.
+FIELD(uint16_t, bcdUSB, 0x0200)
+
+// Class Code (Assigned by USB Org)
+// If equal to Zero, each interface specifies it’s own class code
+// If equal to 0xFF, the class code is vendor specified.
+// Otherwise field is valid Class Code.
+FIELD(uint8_t, bDeviceClass, 0)
+
+// Subclass Code (Assigned by USB Org)
+FIELD(uint8_t, bDeviceSubClass, 0)
+
+// Protocol Code (Assigned by USB Org)
+FIELD(uint8_t, bDeviceProtocol, 0)
+
+// Maximum Packet Size for Zero Endpoint.
+// Valid Sizes are 8, 16, 32, 64
+FIELD(uint8_t, bMaxPacketSize, 64)
+
+// Vendor ID (Assigned by USB Org)
+FIELD(uint16_t, idVendor, 0)
+
+// Product ID (Assigned by Manufacturer)
+FIELD(uint16_t, idProduct, 0)
+
+// Device Release Number
+FIELD(uint16_t, bcdDevice, 0x0200)
+
+// Index of Manufacturer String Descriptor
+FIELD(uint8_t, iManufacturer, 0)
+
+// Index of Product String Descriptor
+FIELD(uint8_t, iProduct, 0)
+
+// Index of Serial Number String Descriptor
+FIELD(uint8_t, iSerialNumber, 0)
+
+// Number of Possible Configurations
+FIELD(uint8_t, bNumConfigurations, 0)
+
+DESCRIPTOR_END()

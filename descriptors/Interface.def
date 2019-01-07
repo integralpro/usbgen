@@ -1,0 +1,24 @@
+DESCRIPTOR_BEGIN(Interface, interface, 9, Interface)
+
+// Number of Interface
+FIELD(uint8_t, bInterfaceNumber, 0x00)
+
+// Value used to select alternative setting
+FIELD(uint8_t, bAlternateSetting, 0x00)
+
+// Number of Endpoints used for this interface
+FIELD(uint8_t, bNumEndpoints, 0x00)
+
+// Class Code (Assigned by USB Org)
+FIELD(uint8_t, bInterfaceClass, 0x00)
+
+// Subclass Code (Assigned by USB Org)
+FIELD(uint8_t, bInterfaceSubClass, 0x00)
+
+// Protocol Code (Assigned by USB Org)
+FIELD(uint8_t, bInterfaceProtocol, 0x00)
+
+// Index of String Descriptor Describing this interface
+FIELD(uint8_t, iInterface, 0x00)
+
+DESCRIPTOR_END()
