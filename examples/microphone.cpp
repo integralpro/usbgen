@@ -2,12 +2,12 @@
 // Created by Pavel Prokofyev on 2019-01-02.
 //
 
-#include <usbgen.h>
+#include <usbgen_src.h>
 
 using namespace usb;
 using namespace usb::audio;
 
-extern "C" constexpr auto USBDeviceImpl = make_device(
+extern "C" constexpr auto USBDeviceDesc = make_device(
     device::idVendor(1155),
     device::idProduct(22336),
     device::bMaxPacketSize(64),
@@ -81,8 +81,11 @@ extern "C" constexpr auto USBDeviceImpl = make_device(
         make_as_iso_data_endpoint()
     ));
 
-extern "C" constexpr auto *USBDevice = &USBDeviceImpl;
-extern "C" constexpr size_t USBDeviceSize = sizeof(USBDeviceImpl);
+extern "C" constexpr auto *USBDevice = &USBDeviceDesc;
+extern "C" constexpr size_t USBDeviceSize = sizeof(USBDeviceDesc);
 
-extern "C" constexpr auto *USBConfiguration = &USBDeviceImpl.get<0>();
-extern "C" constexpr auto USBConfigurationSize = sizeof(USBDeviceImpl.get<0>());
+extern "C" constexpr auto *USBConfiguration = &USBDeviceDesc.get<0>();
+extern "C" constexpr auto USBConfigurationSize = sizeof(USBDeviceDesc.get<0>());
+
+extern "C" constexpr auto USBTest1StringData = make_string(u"test");
+extern "C" constexpr auto USBTest2StringData = make_string({(char16_t)1033});

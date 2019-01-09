@@ -21,5 +21,6 @@
 
 #include "Configuration.h"
 #include "Device.h"
+#include "String.h"
 
 #endif //__USBGEN_DESCRIPTORS__

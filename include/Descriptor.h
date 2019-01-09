@@ -14,7 +14,7 @@ struct DescriptorBase {
   constexpr DescriptorBase(uint8_t bLength, uint8_t bDescriptorType)
       : bLength(bLength), bDescriptorType(bDescriptorType) {}
 
-  constexpr const uint8_t *getPointer() const { return &bLength; }
+  constexpr uint8_t *getPointer() const { return const_cast<uint8_t *>(&bLength); }
 };
 
 #define APPLICATOR(NAME, TYPE, PROP)                                           \
