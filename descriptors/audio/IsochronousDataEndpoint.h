@@ -35,13 +35,13 @@ struct IsochronousDataEndpointComposite
   using BaseTy = detail::CompositeDescriptor<IsochronousDataEndpointDescriptor,
                                              AggregatesT...>;
 
-  constexpr IsochronousDataEndpointComposite(const AggregatesT &... Aggs)
+  constexpr IsochronousDataEndpointComposite(AggregatesT &&... Aggs)
       : BaseTy(Aggs...) {}
 };
 
 template <typename... AggregateT>
-static constexpr auto make_iso_data_endpoint(AggregateT... Aggs) {
-  return detail::composite<IsochronousDataEndpointComposite>(Aggs...);
+static constexpr auto make_iso_data_endpoint(AggregateT &&... Aggs) {
+  return detail::composite<IsochronousDataEndpointComposite>(std::move(Aggs)...);
 }
 
 namespace iso_data_endpoint {

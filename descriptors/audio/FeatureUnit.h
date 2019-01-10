@@ -36,8 +36,8 @@ struct FeatureUnitComposite
   using BaseTy =
       detail::CompositeDescriptor<FeatureUnitDescriptor<T, N>, AggregatesT...>;
 
-  constexpr FeatureUnitComposite(const AggregatesT &... Aggs)
-      : BaseTy(Aggs...) {}
+  constexpr FeatureUnitComposite(AggregatesT &&... Aggs)
+      : BaseTy(std::move(Aggs)...) {}
 };
 
 template <typename T, size_t N> struct FeatureUnitHelper {
@@ -46,8 +46,8 @@ template <typename T, size_t N> struct FeatureUnitHelper {
 };
 
 template <typename T, size_t N, typename... AggregateT>
-static constexpr auto make_feature_unit(AggregateT... Aggs) {
-  return detail::composite<FeatureUnitHelper<T, N>::template type>(Aggs...);
+static constexpr auto make_feature_unit(AggregateT &&... Aggs) {
+  return detail::composite<FeatureUnitHelper<T, N>::template type>(std::move(Aggs)...);
 }
 
 namespace feature_unit {

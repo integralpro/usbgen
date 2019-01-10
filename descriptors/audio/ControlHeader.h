@@ -34,8 +34,8 @@ struct ControlHeaderComposite
   using BaseTy =
       detail::CompositeDescriptor<ControlHeaderDescriptor<N>, AggregatesT...>;
 
-  constexpr ControlHeaderComposite(const AggregatesT &... Aggs)
-      : BaseTy(Aggs...) {
+  constexpr ControlHeaderComposite(AggregatesT &&... Aggs)
+      : BaseTy(std::move(Aggs)...) {
     BaseTy::wTotalLength = sizeof(ControlHeaderComposite);
   }
 };
@@ -46,8 +46,8 @@ template <size_t N> struct AudioControlHelper {
 };
 
 template <size_t N, typename... AggregateT>
-static constexpr auto make_control_header(AggregateT... Aggs) {
-  return detail::composite<AudioControlHelper<N>::template type>(Aggs...);
+static constexpr auto make_control_header(AggregateT &&... Aggs) {
+  return detail::composite<AudioControlHelper<N>::template type>(std::move(Aggs)...);
 }
 
 namespace header {

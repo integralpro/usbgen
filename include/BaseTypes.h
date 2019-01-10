@@ -11,8 +11,7 @@ namespace detail {
 
 struct ApplicatorBase {};
 
-template <typename T>
-using IsApplicatorTy = std::is_base_of<detail::ApplicatorBase, T>;
+template <typename T> using IsApplicatorTy = std::is_base_of<ApplicatorBase, typename std::decay<T>::type>;
 
 } // namespace detail
 

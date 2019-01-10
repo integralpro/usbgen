@@ -23,29 +23,29 @@ extern "C" constexpr auto USBDeviceDesc = make_device(
             interface::bNumEndpoints(0),
             interface::bInterfaceClass(Audio),
             interface::bInterfaceSubClass(SubclassAudioControl),
-            interface::bInterfaceProtocol(ProtocolUndefined),
-            make_control_header<1>(
-                header::bcdADC(0x0100),
-                header::baInterfaceNr<1>(),
-                make_input_terminal(
-                    input_terminal::bTerminalID(1),
-                    input_terminal::wTerminalType(TerminalMicrophone),
-                    input_terminal::bAssocTerminal(0),
-                    input_terminal::bNrChannels(2),
-                    input_terminal::wChannelConfig(LeftFront | RightFront)
-                    ),
-                make_feature_unit<uint16_t, 2>(
-                    feature_unit::bUnitID(2),
-                    output_terminal::bSourceID(1),
-                    feature_unit::bmaControls<Mute | Volume, 0, 0>()
-                    ),
-                make_output_terminal(
-                    output_terminal::bTerminalID(3),
-                    output_terminal::bSourceID(2),
-                    output_terminal::wTerminalType(0x0101)
-                    )
+            interface::bInterfaceProtocol(ProtocolUndefined)
+            ),
+        make_control_header<1>(
+            header::bcdADC(0x0100),
+            header::baInterfaceNr<1>(),
+            make_input_terminal(
+                input_terminal::bTerminalID(1),
+                input_terminal::wTerminalType(TerminalMicrophone),
+                input_terminal::bAssocTerminal(0),
+                input_terminal::bNrChannels(2),
+                input_terminal::wChannelConfig(LeftFront | RightFront)
+                ),
+            make_feature_unit<uint16_t, 2>(
+                feature_unit::bUnitID(2),
+                output_terminal::bSourceID(1),
+                feature_unit::bmaControls<Mute | Volume, 0, 0>()
+                ),
+            make_output_terminal(
+                output_terminal::bTerminalID(3),
+                output_terminal::bSourceID(2),
+                output_terminal::wTerminalType(0x0101)
                 )
-        ),
+            ),
         make_interface(
             interface::bInterfaceNumber(1),
             interface::bAlternateSetting(0),
@@ -81,11 +81,13 @@ extern "C" constexpr auto USBDeviceDesc = make_device(
         make_as_iso_data_endpoint()
     ));
 
-extern "C" constexpr auto *USBDevice = &USBDeviceDesc;
+auto &Config = USBDeviceDesc.sub<0>();
+
+extern "C" constexpr auto *USBDevice = USBDeviceDesc.pointer();
 extern "C" constexpr size_t USBDeviceSize = sizeof(USBDeviceDesc);
 
-extern "C" constexpr auto *USBConfiguration = &USBDeviceDesc.get<0>();
-extern "C" constexpr auto USBConfigurationSize = sizeof(USBDeviceDesc.get<0>());
+extern "C" constexpr auto *USBConfiguration = Config.pointer();
+extern "C" constexpr auto USBConfigurationSize = sizeof(Config);
 
 extern "C" constexpr auto USBTest1StringData = make_string(u"test");
 extern "C" constexpr auto USBTest2StringData = make_string({(char16_t)1033});

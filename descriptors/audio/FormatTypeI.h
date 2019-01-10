@@ -50,7 +50,7 @@ struct FormatTypeIComposite
   using BaseTy =
       detail::CompositeDescriptor<FormatTypeIDescriptor<N>, AggregatesT...>;
 
-  constexpr FormatTypeIComposite(const AggregatesT &... Aggs)
+  constexpr FormatTypeIComposite(AggregatesT &&... Aggs)
       : BaseTy(Aggs...) {}
 };
 
@@ -60,8 +60,8 @@ template <size_t N> struct FormatTypeIHelper {
 };
 
 template <size_t N, typename... AggregateT>
-static constexpr auto make_format_type_i(AggregateT... Aggs) {
-  return detail::composite<FormatTypeIHelper<N>::template type>(Aggs...);
+static constexpr auto make_format_type_i(AggregateT &&... Aggs) {
+  return detail::composite<FormatTypeIHelper<N>::template type>(std::move(Aggs)...);
 }
 
 namespace format_type_i {

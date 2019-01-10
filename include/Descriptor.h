@@ -14,7 +14,10 @@ struct DescriptorBase {
   constexpr DescriptorBase(uint8_t bLength, uint8_t bDescriptorType)
       : bLength(bLength), bDescriptorType(bDescriptorType) {}
 
-  constexpr uint8_t *getPointer() const { return const_cast<uint8_t *>(&bLength); }
+  DescriptorBase(const DescriptorBase &) = delete;
+  DescriptorBase(DescriptorBase &&) = default;
+
+  constexpr uint8_t *pointer() const { return (uint8_t *)(this); }
 };
 
 #define APPLICATOR(NAME, TYPE, PROP)                                           \
@@ -29,6 +32,8 @@ struct DescriptorBase {
 #define DESCRIPTOR_DEFINE(NAME, NAME1, SIZE, KIND)                             \
   struct NAME##Descriptor : public DescriptorBase {                            \
     using BaseTy = DescriptorBase;                                             \
+    constexpr NAME##Descriptor(const NAME##Descriptor &) = delete;             \
+    constexpr NAME##Descriptor(NAME##Descriptor &&Obj) = default;              \
     constexpr NAME##Descriptor() : BaseTy(sizeof(NAME##Descriptor), KIND) {    \
       static_assert(sizeof(NAME##Descriptor) == SIZE,                          \
                     "unexpected descriptor size");                             \
