@@ -31,18 +31,52 @@ constexpr void apply(T &Object, const std::tuple<ModsT &&...> &Mods) {
               std::make_index_sequence<std::tuple_size<typename std::decay<decltype(Mods)>::type>{}>{});
 }
 
+template <typename... Ts> struct CompositeLayer;
+
+template <typename T, typename... Rs> struct CompositeLayer<T, Rs...> {
+  T current;
+  CompositeLayer<Rs...> rest;
+
+  constexpr CompositeLayer(T &&Current, Rs &&...Rest) : current(std::move(Current)), rest(std::move(Rest)...) {}
+  CompositeLayer(const CompositeLayer &) = delete;
+  CompositeLayer(CompositeLayer &&) = default;
+
+  template <size_t I, typename = std::enable_if_t<I == 0>>
+  constexpr const T &sub() const {
+    return current;
+  }
+
+  template <size_t I, typename = std::enable_if_t<(I > 0)>>
+  constexpr const auto &sub() const {
+    return rest.template sub<I - 1>();
+  }
+};
+
+template <typename T> struct CompositeLayer<T> {
+  T current;
+
+  constexpr CompositeLayer(T &&Current) : current(std::move(Current)) {}
+  CompositeLayer(const CompositeLayer &) = delete;
+  CompositeLayer(CompositeLayer &&) = default;
+
+  template <size_t I, typename = std::enable_if_t<I == 0>>
+  constexpr const T &sub() const {
+    return current;
+  }
+};
+
 template <typename BaseT, typename... AggregatesT>
 struct CompositeDescriptor : public BaseT {
-  std::tuple<AggregatesT...> aggregates;
+  CompositeLayer<AggregatesT...> aggregates;
 
   constexpr CompositeDescriptor(AggregatesT &&... Aggs)
-      : aggregates(std::make_tuple(std::move(Aggs)...)) {}
+      : aggregates(std::move(Aggs)...) {}
 
   constexpr CompositeDescriptor(CompositeDescriptor &&Obj) = default;
   constexpr CompositeDescriptor(const CompositeDescriptor &) = delete;
 
   template <size_t Index> constexpr const auto &sub() const {
-    return std::get<Index>(aggregates);
+    return aggregates.template sub<Index>();
   }
 };
 
