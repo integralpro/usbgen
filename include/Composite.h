@@ -46,7 +46,7 @@ template <typename T, typename... Rs> struct CompositeLayer<T, Rs...> {
     return current;
   }
 
-  template <size_t I, typename = std::enable_if_t<(I > 0)>>
+  template <size_t I, typename = std::enable_if_t<(I != 0)>>
   constexpr const auto &sub() const {
     return rest.template sub<I - 1>();
   }
@@ -61,6 +61,12 @@ template <typename T> struct CompositeLayer<T> {
 
   template <size_t I, typename = std::enable_if_t<I == 0>>
   constexpr const T &sub() const {
+    return current;
+  }
+
+  template <size_t I, typename = std::enable_if_t<(I != 0)>>
+  constexpr const auto &sub() const {
+    static_assert(I == 0, "No such sub-descriptor");
     return current;
   }
 };
