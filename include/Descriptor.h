@@ -37,7 +37,8 @@ struct DescriptorBase {
     constexpr NAME##Descriptor() : BaseTy(sizeof(NAME##Descriptor), KIND) {    \
       static_assert(sizeof(NAME##Descriptor) == SIZE,                          \
                     "unexpected descriptor size");                             \
-    }
+    }                                                                          \
+    constexpr NAME##Descriptor(uint8_t bLength) : BaseTy(bLength, KIND) {}
 
 } // namespace usb
 

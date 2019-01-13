@@ -22,7 +22,8 @@ struct IsochronousDataEndpointDescriptor : public EndpointDescriptor {
   // used.
   uint8_t bSynchAddress = {0};
 
-  constexpr IsochronousDataEndpointDescriptor() {
+  constexpr IsochronousDataEndpointDescriptor()
+      : BaseTy(sizeof(IsochronousDataEndpointDescriptor)) {
     static_assert(sizeof(IsochronousDataEndpointDescriptor) == 9,
                   "unexpected descriptor size");
   }
