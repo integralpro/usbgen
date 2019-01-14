@@ -1,0 +1,28 @@
+DESCRIPTOR_BEGIN(DeviceQualifier, device_qualifier, 10, DeviceQualifier)
+
+// USB specification version number (e.g., 0200H for V2.00 )
+FIELD(uint16_t, bcdUSB, 0x0200)
+
+// Class Code (Assigned by USB Org)
+// If equal to Zero, each interface specifies it’s own class code
+// If equal to 0xFF, the class code is vendor specified.
+// Otherwise field is valid Class Code.
+FIELD(uint8_t, bDeviceClass, 0)
+
+// Subclass Code (Assigned by USB Org)
+FIELD(uint8_t, bDeviceSubClass, 0)
+
+// Protocol Code (Assigned by USB Org)
+FIELD(uint8_t, bDeviceProtocol, 0)
+
+// Maximum Packet Size for Zero Endpoint.
+// Valid Sizes are 8, 16, 32, 64
+FIELD(uint8_t, bMaxPacketSize, 64)
+
+// Number of Other-speed Configurations
+FIELD(uint8_t, bNumConfigurations, 0)
+
+// Reserved for future use, must be zero
+FIELD_HIDDEN(uint8_t, bReserved, 0)
+
+DESCRIPTOR_END()

@@ -17,6 +17,7 @@
 
 #include "descriptors/Descriptors.h"
 #include "descriptors/audio/Descriptors.h"
+#include "descriptors/msc/Descriptors.h"
 
 #pragma pack(pop)
 

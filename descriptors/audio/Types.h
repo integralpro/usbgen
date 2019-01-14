@@ -2,14 +2,17 @@
 // Created by Pavel Prokofyev on 2019-01-05.
 //
 
-#ifndef __USBGEN_AUDIO_TERMINAL_TYPES__
-#define __USBGEN_AUDIO_TERMINAL_TYPES__
+#ifndef __USBGEN_DESCRIPTORS_AUDIO_TYPES__
+#define __USBGEN_DESCRIPTORS_AUDIO_TYPES__
 
 namespace usb {
 namespace audio {
 
+enum : uint8_t {
+  Undefined = 0x00
+};
+
 enum ControlInterfaceSubtype : uint8_t {
-  ControlUndefined = 0x00,
   Header = 0x01,
   InputTerminal = 0x02,
   OutputTerminal = 0x03,
@@ -21,20 +24,18 @@ enum ControlInterfaceSubtype : uint8_t {
 };
 
 enum StreamingInterfaceSubtype : uint8_t {
-  ASUndefined = 0x00,
   ASGeneral = 0x01,
   FormatType = 0x02,
   FormatSpecific = 0x03,
 };
 
 enum StreamingEndpointSubtype : uint8_t {
-  EPUndefined = 0x00,
   EPGeneral = 0x01,
 };
 
 enum InputTerminalType : uint16_t {
   // Input Terminal, undefined Type.
-  TerminalUndefined = 0x0200,
+  InputUndefined = 0x0200,
 
   // A generic microphone that does not fit under any of the other
   // classifications.
@@ -87,7 +88,6 @@ enum FeatureUnitControls : uint16_t {
 };
 
 enum InterfaceSubclass : uint8_t {
-  SubclassUndefined = 0x00,
   SubclassAudioControl = 0x01,
   SubclassAudioStreaming = 0x02,
   SubclassMidiStreaming = 0x03
@@ -105,7 +105,6 @@ enum DescriptorType : uint8_t {
 };
 
 enum DataFormatType : uint8_t {
-  FormatTypeUndefined = 0x00,
   FormatTypeI = 0x01,
   FormatTypeII = 0x02,
   FormatTypeIII = 0x03
@@ -123,4 +122,4 @@ enum DataFormatTypeI : uint16_t {
 } // namespace audio
 } // namespace usb
 
-#endif //__USBGEN_AUDIO_TERMINAL_TYPES__
+#endif //__USBGEN_DESCRIPTORS_AUDIO_TYPES__

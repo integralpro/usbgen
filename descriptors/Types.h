@@ -13,6 +13,7 @@ enum DescriptorType : uint8_t {
   String = 0x03,
   Interface = 0x04,
   Endpoint = 0x05,
+  DeviceQualifier = 0x06,
 };
 
 enum DescriptorClass : uint8_t {

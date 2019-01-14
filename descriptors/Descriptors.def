@@ -8,5 +8,6 @@ namespace usb {
 #include "Configuration.def"
 #include "Interface.def"
 #include "Endpoint.def"
+#include "DeviceQualifier.def"
 
 }
