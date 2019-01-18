@@ -10,21 +10,21 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/usbgen)
 
+set(SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/usbgen_src.h)
+
 add_custom_command(
         OUTPUT ${OUTPUT}
-        OUTPUT .phony
-        COMMAND ${CMAKE_C_COMPILER} -P -C -E ${CMAKE_CURRENT_SOURCE_DIR}/usbgen_src.h -o usbgen.h.in -I${CMAKE_CURRENT_SOURCE_DIR}/include -DAMALGAMATION
+        COMMAND ${CMAKE_C_COMPILER} -MD -P -C -E ${SOURCE} -o usbgen.h.in -I${CMAKE_CURRENT_SOURCE_DIR}/include -DAMALGAMATION
         COMMAND cat ${CMAKE_CURRENT_SOURCE_DIR}/include/Std.h > ${OUTPUT}
         COMMAND cat usbgen.h.in >> ${OUTPUT}
         COMMAND clang-format -i ${OUTPUT}
-        MAIN_DEPENDENCY usbgen_src.h
+        IMPLICIT_DEPENDS CXX "${SOURCE}"
         COMMENT "Preprocessing usbgen.h"
         VERBATIM)
 
 add_custom_target(
         usbgen ALL
         DEPENDS ${OUTPUT}
-        DEPENDS .phony
         VERBATIM)
 
 add_subdirectory(examples)
