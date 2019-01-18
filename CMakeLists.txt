@@ -14,7 +14,7 @@ set(SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/usbgen_src.h)
 
 add_custom_command(
         OUTPUT ${OUTPUT}
-        COMMAND ${CMAKE_C_COMPILER} -MD -P -C -E ${SOURCE} -o usbgen.h.in -I${CMAKE_CURRENT_SOURCE_DIR}/include -DAMALGAMATION
+        COMMAND ${CMAKE_C_COMPILER} -P -C -E ${SOURCE} -o usbgen.h.in -I${CMAKE_CURRENT_SOURCE_DIR}/include -DAMALGAMATION
         COMMAND cat ${CMAKE_CURRENT_SOURCE_DIR}/include/Std.h > ${OUTPUT}
         COMMAND cat usbgen.h.in >> ${OUTPUT}
         COMMAND clang-format -i ${OUTPUT}
